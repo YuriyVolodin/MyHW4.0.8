@@ -15,10 +15,6 @@ public class VerificationPage {
         codeField.shouldBe(visible);
     }
 
-    public void verifyErrorNotification(String expectedText) {
-        errorNotification.shouldHave(exactText(expectedText)).shouldBe(visible);
-    }
-
     public DashboardPage validVerify(String verificationCode) {
         verify(verificationCode);
         return new DashboardPage();

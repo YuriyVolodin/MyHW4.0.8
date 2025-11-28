@@ -16,22 +16,14 @@ public class DashboardPage {
     private final SelenideElement header = $("[data-test-id=dashboard]");
 
     public DashboardPage() {
-        header.shouldBe(Condition.visible);
+        header.shouldBe(Condition.visible)
+                .shouldHave(Condition.exactText("Личный кабинет"));
     }
 
     private SelenideElement getCard(DataHelper.CardInfo cardInfo) {
         return cards.find(Condition.attribute("data-test-id", cardInfo.getTestId()));
     }
 
-    public int getCardBalance(DataHelper.CardInfo cardInfo) {
-        String text = getCard(cardInfo).getText();
-        return extractBalance(text);
-    }
-
-    public TransferPage selectCard(DataHelper.CardInfo cardInfo) {
-        getCard(cardInfo).$("button").click();
-        return new TransferPage();
-    }
 
     private int extractBalance(String text) {
         int start = text.indexOf(balanceStart);
@@ -45,8 +37,4 @@ public class DashboardPage {
         return Integer.parseInt(value);
     }
 
-    public void shouldHaveBalance(DataHelper.CardInfo cardInfo, int expectedBalance) {
-        String expectedText = balanceStart + expectedBalance + balanceFinish;
-        getCard(cardInfo).shouldHave(Condition.text(expectedText));
-    }
 }

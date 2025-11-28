@@ -19,20 +19,20 @@ public class SQLHelper {
     }
 
     @SneakyThrows
-    public static DataHelper.VerificationCode getVerificationCode(int userId) {
-        String sql = "SELECT code FROM auth_codes WHERE user_id = ? ORDER BY created DESC LIMIT 1";
-        try (Connection conn = getConnection()) {
-            return QUERY_RUNNER.query(conn, sql, new BeanHandler<>(DataHelper.VerificationCode.class), userId);
-        }
-    }
-
-    @SneakyThrows
     public static void cleanDatabase() {
         try (Connection conn = getConnection()) {
             QUERY_RUNNER.execute(conn, "DELETE FROM auth_codes");
             QUERY_RUNNER.execute(conn, "DELETE FROM card_transactions");
             QUERY_RUNNER.execute(conn, "DELETE FROM cards");
             QUERY_RUNNER.execute(conn, "DELETE FROM users");
+        }
+    }
+
+    @SneakyThrows
+    public static DataHelper.VerificationCode getVerificationCode(int userId) {
+        String sql = "SELECT code FROM auth_codes WHERE user_id = ? ORDER BY created DESC LIMIT 1";
+        try (Connection conn = getConnection()) {
+            return QUERY_RUNNER.query(conn, sql, new BeanHandler<>(DataHelper.VerificationCode.class), userId);
         }
     }
 

@@ -1,4 +1,4 @@
-package ru.netology.web.test;
+package ru.netology.iqa116.test;
 
 import org.junit.jupiter.api.*;
 import ru.netology.iqa116.data.DataHelper;
@@ -32,9 +32,8 @@ public class LoginTests {
     void shouldSuccessfullyLogin() {
         DataHelper.AuthInfo authInfo = DataHelper.getAuthInfo();
         var verificationPage = loginPage.validLogin(authInfo);
-        var verificationCodeObj = DataHelper.getVerificationCodeFor(authInfo);
+
+        DataHelper.VerificationCode verificationCodeObj = SQLHelper.getVerificationCode(1);
         verificationPage.validVerify(verificationCodeObj.getCode());
-
-
     }
 }

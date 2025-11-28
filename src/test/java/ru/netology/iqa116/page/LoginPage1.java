@@ -27,8 +27,4 @@ public class LoginPage1 {
         return new VerificationPage();
     }
 
-    public void invalidLogin(DataHelper.AuthInfo authInfo) {
-        fillLoginForm(authInfo);
-        $("[data-test-id=error-notification]").shouldBe(Condition.visible);
-    }
 }
