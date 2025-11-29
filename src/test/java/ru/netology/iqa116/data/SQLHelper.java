@@ -11,8 +11,7 @@ import java.sql.SQLException;
 public class SQLHelper {
     private static final QueryRunner QUERY_RUNNER = new QueryRunner();
 
-    private SQLHelper() {
-    }
+    private SQLHelper() {}
 
     private static Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
@@ -29,10 +28,10 @@ public class SQLHelper {
     }
 
     @SneakyThrows
-    public static DataHelper.VerificationCode getVerificationCode(int userId) {
-        String sql = "SELECT code FROM auth_codes WHERE user_id = ? ORDER BY created DESC LIMIT 1";
+    public static DataHelper.VerificationCode getLatestVerificationCode() {
+        String sql = "SELECT code FROM auth_codes ORDER BY created DESC LIMIT 1";
         try (Connection conn = getConnection()) {
-            return QUERY_RUNNER.query(conn, sql, new BeanHandler<>(DataHelper.VerificationCode.class), userId);
+            return QUERY_RUNNER.query(conn, sql, new BeanHandler<>(DataHelper.VerificationCode.class));
         }
     }
 

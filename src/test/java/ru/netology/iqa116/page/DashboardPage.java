@@ -19,22 +19,4 @@ public class DashboardPage {
         header.shouldBe(Condition.visible)
                 .shouldHave(Condition.exactText("Личный кабинет"));
     }
-
-    private SelenideElement getCard(DataHelper.CardInfo cardInfo) {
-        return cards.find(Condition.attribute("data-test-id", cardInfo.getTestId()));
-    }
-
-
-    private int extractBalance(String text) {
-        int start = text.indexOf(balanceStart);
-        int finish = text.indexOf(balanceFinish);
-
-        if (start < 0 || finish < 0) {
-            throw new IllegalStateException("Не удалось найти баланс в тексте: " + text);
-        }
-
-        String value = text.substring(start + balanceStart.length(), finish).replaceAll("\\s", "");
-        return Integer.parseInt(value);
-    }
-
 }

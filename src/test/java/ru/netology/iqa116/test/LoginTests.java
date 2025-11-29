@@ -30,10 +30,10 @@ public class LoginTests {
 
     @Test
     void shouldSuccessfullyLogin() {
-        DataHelper.AuthInfo authInfo = DataHelper.getAuthInfo();
+        var authInfo = DataHelper.getAuthInfo();
         var verificationPage = loginPage.validLogin(authInfo);
-
-        DataHelper.VerificationCode verificationCodeObj = SQLHelper.getVerificationCode(1);
+        var verificationCodeObj = SQLHelper.getLatestVerificationCode();
         verificationPage.validVerify(verificationCodeObj.getCode());
     }
+
 }
